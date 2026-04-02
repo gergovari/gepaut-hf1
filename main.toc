@@ -1,6 +1,6 @@
 \babel@toc {magyar}{}\relax 
 \contentsline {section}{\numberline {1}Egyhengeres munkahenger mozgásának vezérlése szelepek sorbakötésével}{1}{}%
 \contentsline {section}{\numberline {2}Egyhengeres, folyamatos alternáló mozgást megvalósító kapcsolás}{2}{}%
-\contentsline {section}{\numberline {3}Két munkahengeres vezérlés. Két munkahenger alternáló mozgása, ahol a munkahengerek mozgása egymáshoz képest egy lépéssel el van tolva. (Út-lépés diagram) (Indítás és leállítás 3/2-es szelepekkel és a munkahengereknél végálláskapcsolókkal)}{3}{}%
+\contentsline {section}{\numberline {3}Két munkahengeres vezérlés}{3}{}%
 \contentsline {section}{\numberline {4}Ki domináns öntartó kapcsolás}{4}{}%
 \contentsline {section}{\numberline {5}Egy munkahenger folyamatos alternáló mozgása monostabil szeleppel öntartó kapcsolás segítségével}{5}{}%

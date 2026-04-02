@@ -1,52 +1,98 @@
-\section{Két munkahengeres vezérlés. Két munkahenger alternáló mozgása, ahol a munkahengerek mozgása egymáshoz képest egy lépéssel el van tolva. (Út-lépés diagram) (Indítás és leállítás 3/2-es szelepekkel és a munkahengereknél végálláskapcsolókkal)}
+\section{Két munkahengeres vezérlés}
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[thick, >=Stealth, scale=0.7, transform shape]
-        \begin{scope}[shift={(1,0)}]
-        % Cylinders
-        \begin{scope}[shift={(-1, 8)}]
-            \cyDouble
-            \draw (2.8, 1.2) -- (2.8, 2.2) node[above] {1S1};
-            \draw (5.0, 1.2) -- (5.0, 2.2) node[above] {1S2};
-        \end{scope}
-        \begin{scope}[shift={(5, 8)}]
-            \cyDouble
-            \draw (2.8, 1.2) -- (2.8, 2.2) node[above] {2S1};
-            \draw (5.0, 1.2) -- (5.0, 2.2) node[above] {2S2};
-        \end{scope}
-            
-            \begin{scope}[shift={(-2.5, 1.5)}]
-                \valveFiveTwo
-                \actPilotLeft
-                \actPilotRight
-                \portExhaust{1.3}{0}
-                \portSupply{1.5}{0}
-                \portExhaust{1.7}{0}
-                \node[below] at (1, -0.8) {5/2 (A)};
-                \draw (1.3, 1) |- (0.5, 3) -- (0.5, 6.0) ;
-                \draw (1.7, 1) |- (3.0, 4) -- (3.0, 6.0) ;
-            \end{scope}
-            
-            \begin{scope}[shift={(4.5, 1.5)}]
-                \valveFiveTwo
-                \actPilotLeft
-                \actPilotRight
-                \portExhaust{1.3}{0}
-                \portSupply{1.5}{0}
-                \portExhaust{1.7}{0}
-                \node[below] at (1, -0.8) {5/2 (B)};
-                \draw (1.3, 1) |- (-0.5, 3) -- (-0.5, 6.0) ;
-                \draw (1.7, 1) |- (2.0, 4) -- (2.0, 6.0) ;
-            \end{scope}
-            
-            \draw[dashed] (-3, -2) rectangle (8, 0);
-            \node at (2.5, -1) {Lejátszó logika \& 3/2 Görgős szelepek lánca};
+    \begin{tikzpicture}[thick, >=Stealth, scale=0.6, transform shape]
 
-            \draw (-2.5, 0) -- (-2.5, 1.5);
-            \draw (-0.5, 0) -- (-0.5, 1.5);
-            \draw (4.5, 0) -- (4.5, 1.5);
-            \draw (6.5, 0) -- (6.5, 1.5);
+        % Cylinders
+        \begin{scope}[shift={(1, 8)}]
+            \cyDouble
+            \node[above left] at (0, 1) {A};
         \end{scope}
+        \begin{scope}[shift={(10, 8)}]
+            \cyDouble
+            \node[above left] at (0, 1) {B};
+        \end{scope}
+
+        % Főszelep A
+        \begin{scope}[shift={(2.5, 4)}]
+            \valveFiveTwo \actPilotLeft \actPilotRight
+            \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
+            \draw (1.3, 1) |- (2.0, 6.5) -- (2.0, 7.5); % Left out -> Cyl A Left
+            \draw (1.7, 1) |- (6.0, 6.5) -- (6.0, 7.5); % Right out -> Cyl A Right
+        \end{scope}
+
+        % Főszelep B
+        \begin{scope}[shift={(11.5, 4)}]
+            \valveFiveTwo \actPilotLeft \actPilotRight
+            \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
+            \draw (1.3, 1) |- (11.0, 6.5) -- (11.0, 7.5); % Left out -> Cyl B Left
+            \draw (1.7, 1) |- (15.0, 6.5) -- (15.0, 7.5); % Right out -> Cyl B Right
+        \end{scope}
+
+        % Vertical Limit V1 (under Cyl A right)
+        \begin{scope}[shift={(5, 3)}, rotate=-90, transform shape]
+            \valveThreeTwo \actRoller \actSpring
+        \end{scope}
+        \draw (5.3, 3.6) -- (5.3, 4.5); \draw (5.1, 4.5) -- (5.5, 4.5); % Mechanical marker
+        \draw (5, 1.8) |- (4.5, 1.2); \portExhaust{4.5}{1.2} % Exhaust
+        \draw (6, 1.8) |- (5.0, 4.5); % Output (local 1, -1.2 -> absolute X=6, Y=1.8) to Főszelep A Right Pilot
+
+        % Vertical Limit V2
+        \begin{scope}[shift={(7, 3)}, rotate=-90, transform shape]
+            \valveThreeTwo \actRoller \actSpring
+        \end{scope}
+        \draw (7.3, 3.6) -- (7.3, 4.5); \draw (7.1, 4.5) -- (7.5, 4.5);
+        \draw (7, 1.8) |- (6.5, 1.2); \portExhaust{6.5}{1.2}
+        \draw (8, 1.8) |- (11.0, 4.5); % Output to Főszelep B Left Pilot
+
+        % Vertical Limit V3
+        \begin{scope}[shift={(14, 3)}, rotate=-90, transform shape]
+            \valveThreeTwo \actRoller \actSpring
+        \end{scope}
+        \draw (14.3, 3.6) -- (14.3, 4.5); \draw (14.1, 4.5) -- (14.5, 4.5);
+        \draw (14, 1.8) |- (13.5, 1.2); \portExhaust{13.5}{1.2}
+        \draw (15, 1.8) |- (14.0, 4.5); % Output to Főszelep B Right Pilot
+
+        % Vertical Limit V4
+        \begin{scope}[shift={(16, 3)}, rotate=-90, transform shape]
+            \valveThreeTwo \actRoller \actSpring
+        \end{scope}
+        \draw (16.3, 3.6) -- (16.3, 4.5); \draw (16.1, 4.5) -- (16.5, 4.5);
+        \draw (16, 1.8) |- (15.5, 1.2); \portExhaust{15.5}{1.2}
+        % Output to Főszelep A Left Pilot (2.5-0.5 = 2.0). 
+        % Routes under valves to avoid crossing.
+        \draw (17, 1.8) -- (17, -0.5) -- (1.5, -0.5) -- (1.5, 4.5) -- (2.0, 4.5);
+
+        % Memory 5/2 manifold
+        \begin{scope}[shift={(7, -3)}]
+            \valveFiveTwo \actPilotLeft \actPilotRight
+            \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
+        \end{scope}
+        % Port 4 L1 Manifold. Absolute (7+1.3 = 8.3, -2)
+        \draw (8.3, -2) |- (14, -1) -- (5, -1);
+        \draw (5, -1) -- (5, 1.8);   % V1 Supply (0, -1.2 local -> 5, 1.8 abs)
+        \draw (7, -1) -- (7, 1.8);   % V2 Supply
+        \draw (14, -1) -- (14, 1.8); % V3 Supply
+
+        % Port 2 L2 Manifold. Absolute (7+1.7 = 8.7, -2)
+        \draw (8.7, -2) |- (16, -1.5) -- (16, 1.8); % V4 Supply
+
+        % START
+        \begin{scope}[shift={(1.5, -6)}]
+            \valveThreeTwo \actButton \actSpring
+            \portSupply{1.2}{0} \portExhaust{1.8}{0}
+            \node[below] at (0.5, -0.2) {START};
+            \draw (1.2, 1) |- (6.5, -2.5); % To Mem Left Pilot
+        \end{scope}
+
+        % STOP
+        \begin{scope}[shift={(10.5, -6)}]
+            \valveThreeTwo \actButton \actSpring
+            \portSupply{1.2}{0} \portExhaust{1.8}{0}
+            \node[below] at (0.5, -0.2) {STOP};
+            \draw (1.2, 1) |- (9.5, -2.5); % To Mem Right Pilot
+        \end{scope}
+
     \end{tikzpicture}
 \end{figure}
