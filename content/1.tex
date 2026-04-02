@@ -1,0 +1,37 @@
+\section{Egyhengeres munkahenger mozgásának vezérlése szelepek sorbakötésével}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[thick, >=Stealth, scale=0.8, transform shape]
+        
+        % Cylinder
+        \begin{scope}[shift={(2.7, 6)}]
+            \cySingle
+        \end{scope}
+
+        % Valve 2 (Top)
+        \begin{scope}[shift={(0, 3)}]
+            \valveThreeTwo
+            \actButton
+            \actSpring
+            \portExhaust{1.8}{0}
+        \end{scope}
+
+        % Valve 1 (Bottom)
+        \begin{scope}[shift={(0, 0)}]
+            \valveThreeTwo
+            \actButton
+            \actSpring
+            \portSupply{1.2}{0}
+            \portExhaust{1.8}{0}
+        \end{scope}
+
+        % Serial Connections
+        % Valve 1 output to Valve 2 input
+        \draw (1.2, 1) -- (1.2, 3);
+        
+        % Valve 2 output to Cylinder
+        \draw (1.2, 4) -- (1.2, 5.5);
+
+    \end{tikzpicture}
+\end{figure}

@@ -1,0 +1,88 @@
+\section{Egyhengeres, folyamatos alternáló mozgást megvalósító kapcsolás}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[thick, >=Stealth, scale=0.7, transform shape]
+        
+        % Cylinder
+        \begin{scope}[shift={(3.75, 8)}]
+            \cyDouble
+            % Limit switch markers
+            \draw (2.8, 1.2) -- (2.8, 2.2) node[above] {1S1};
+            \draw (5.0, 1.2) -- (5.0, 2.2) node[above] {1S2};
+        \end{scope}
+
+        % 5/2 Főszelep
+        \begin{scope}[shift={(2.5, 4.5)}]
+            \valveFiveTwo
+            \actPilotLeft
+            \actPilotRight
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
+            
+            \draw (1.3, 1) |- (0.25, 1.5) -- (0.25, 3.0);
+            \draw (1.7, 1) |- (2.75, 1.5) -- (2.75, 3.0);
+        \end{scope}
+
+        % 1S1
+        \begin{scope}[shift={(-1.5, 1)}]
+            \valveThreeTwo
+            \actRoller
+            \actSpring
+            \portExhaust{1.8}{0}
+            \node[above] at (-0.5, 0.8) {1S1};
+            \draw (1.2, 1) |- (3.5, 4.0);
+        \end{scope}
+
+        % 1S2
+        \begin{scope}[shift={(6.5, 1)}]
+            \valveThreeTwo
+            \actRoller
+            \actSpring
+            \portExhaust{1.8}{0}
+            \node[above] at (-0.5, 0.8) {1S2};
+            \draw (1.2, 1) |- (-1.5, 4.0);
+        \end{scope}
+
+        % Memory 5/2
+        \begin{scope}[shift={(2.5, -2.5)}]
+            \valveFiveTwo
+            \actPilotLeft
+            \actPilotRight
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
+            
+            \draw (1.3, 1) -- (1.3, 2); 
+            \draw (-2.8, 2) -- (5.2, 2); 
+            \draw (-2.8, 2) -- (-2.8, 3.5); 
+            \draw (5.2, 2) -- (5.2, 3.5); 
+            
+            \draw (1.7, 1) -- (1.7, 1.3); \draw (1.55, 1.3) -- (1.85, 1.3);
+        \end{scope}
+
+        % START
+        \begin{scope}[shift={(0, -5.5)}]
+            \valveThreeTwo
+            \actButton
+            \actSpring
+            \portSupply{1.2}{0}
+            \portExhaust{1.8}{0}
+            \node[below] at (0.5, -0.2) {START};
+            \draw (1.2, 1) |- (2.0, 3.5);
+        \end{scope}
+
+        % STOP
+        \begin{scope}[shift={(5, -5.5)}]
+            \valveThreeTwo
+            \actButton
+            \actSpring
+            \portSupply{1.2}{0}
+            \portExhaust{1.8}{0}
+            \node[below] at (0.5, -0.2) {STOP};
+            \draw (1.2, 1) |- (0, 3.5);
+        \end{scope}
+
+    \end{tikzpicture}
+\end{figure}
