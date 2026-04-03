@@ -11,15 +11,15 @@
         \begin{scope}[shift={(3.8, 14)}]
             \cyDouble
         \end{scope}
-        \node at (6.6, 16) {A S1}; \draw (6.6, 15.6) -- (6.6, 15.0);
-        \node at (8.6, 16) {A S2}; \draw (8.6, 15.6) -- (8.6, 15.0);
+        \node at (6.6, 16) {A S1}; \draw[dashed] (6.6, 15.6) -- (6.6, 15.0);
+        \node at (8.6, 16) {A S2}; \draw[dashed] (8.6, 15.6) -- (8.6, 15.0);
 
         % Cyl B (Right)
         \begin{scope}[shift={(14.8, 14)}]
             \cyDouble
         \end{scope}
-        \node at (17.6, 16) {B S1}; \draw (17.6, 15.6) -- (17.6, 15.0);
-        \node at (19.6, 16) {B S2}; \draw (19.6, 15.6) -- (19.6, 15.0);
+        \node at (17.6, 16) {B S1}; \draw[dashed] (17.6, 15.6) -- (17.6, 15.0);
+        \node at (19.6, 16) {B S2}; \draw[dashed] (19.6, 15.6) -- (19.6, 15.0);
 
         % =====================================
         % Top Főszelepek (5/2 Valves)
@@ -27,19 +27,25 @@
 
         % Főszelep A (Left)
         \begin{scope}[shift={(3.6, 10)}]
-            \valveFiveTwo \actPilotLeft \actPilotRight
-            \portExhaust{1.3}{0} \portExhaust{1.7}{0}
-            \draw (1.5, 0) -- (1.5, -0.5); \portSupply{1.5}{-0.5}
+            \valveFiveTwo
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
         \end{scope}
+        \draw (3.6, 10.5) -- (3.1, 10.5);
+        \draw (5.6, 10.5) -- (6.1, 10.5);
         \draw (2.8, 13.5) -- (2.8, 12) -- (4.9, 12) -- (4.9, 11);
         \draw (5.3, 13.5) -- (5.3, 11);
 
         % Főszelep B (Right)
         \begin{scope}[shift={(14.6, 10)}]
-            \valveFiveTwo \actPilotLeft \actPilotRight
-            \portExhaust{1.3}{0} \portExhaust{1.7}{0}
-            \draw (1.5, 0) -- (1.5, -0.5); \portSupply{1.5}{-0.5}
+            \valveFiveTwo
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
         \end{scope}
+        \draw (14.6, 10.5) -- (14.1, 10.5);
+        \draw (16.6, 10.5) -- (17.1, 10.5);
         \draw (13.8, 13.5) -- (13.8, 12) -- (15.9, 12) -- (15.9, 11);
         \draw (16.3, 13.5) -- (16.3, 11);
 
@@ -49,17 +55,18 @@
 
         % B S1 (Far Left, triggers A+)
         \begin{scope}[shift={(1, 5)}]
-            \valveThreeTwo \actCam \actSpring \portExhaust{1.8}{0}
+            \valveThreeTwo \actCam \actSpring \portExhaust{0.8}{0}
         \end{scope}
         \node at (0, 6.5) {B S1};
-        \draw (2.2, 6) -- (2.2, 8.5) -- (3.1, 8.5) -- (3.1, 10.5);
+        \draw (1.2, 6) -- (1.2, 8.5) -- (3.1, 8.5) -- (3.1, 10.5);
 
         % B S2 (Middle Left)
         \begin{scope}[shift={(6, 5)}]
             \valveThreeTwo \actRoller \actSpring \portExhaust{1.8}{0}
         \end{scope}
         \node at (5, 6.5) {B S2};
-        \draw (7.2, 6) -- (7.2, 8.0) -- (12.1, 8.0) -- (12.1, 0.5);
+        \draw (7.2, 6) -- (7.2, 8.0) -- (6.1, 8.0) -- (6.1, 10.5);
+        \draw (7.2, 5) -- (7.2, 4.5); \portSupply{7.2}{4.5}
 
         % A S2 (Middle Right, triggers B+)
         \begin{scope}[shift={(10, 5)}]
@@ -67,34 +74,35 @@
         \end{scope}
         \node at (9, 6.5) {A S2};
         \draw (11.2, 6) -- (11.2, 8.5) -- (14.1, 8.5) -- (14.1, 10.5);
+        \draw (11.2, 5) -- (11.2, 4.5); \portSupply{11.2}{4.5}
 
         % A S1 (Far Right, triggers B-)
         \begin{scope}[shift={(19, 5)}]
-            \valveThreeTwo \actCam \actSpring \portExhaust{1.8}{0}
+            \valveThreeTwo \actCam \actSpring \portExhaust{0.8}{0}
         \end{scope}
         \node at (22, 6.5) {A S1};
-        \draw (20.2, 6) -- (20.2, 8.5) -- (17.1, 8.5) -- (17.1, 10.5);
+        \draw (19.2, 6) -- (19.2, 8.5) -- (17.1, 8.5) -- (17.1, 10.5);
+        \draw (19.2, 5) -- (19.2, 4.5); \portSupply{19.2}{4.5}
 
         % =====================================
         % Memory Valve (Cascade Supply)
         % =====================================
 
         \begin{scope}[shift={(8.6, 0)}]
-            \valveFiveTwo \actPilotLeft \actPilotRight
-            \portExhaust{1.3}{0} \portExhaust{1.7}{0}
-            \draw (1.5, 0) -- (1.5, -0.5); \portSupply{1.5}{-0.5}
+            \valveFiveTwo
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
         \end{scope}
+        \draw (8.6, 0.5) -- (8.1, 0.5);
+        \draw (10.6, 0.5) -- (11.1, 0.5);
 
-        % L1 Structure
-        \draw (9.9, 1) -- (9.9, 2);
-        \draw (9.9, 2) -- (2.2, 2) -- (2.2, 5);
-        \draw (9.9, 2) -- (11.2, 2) -- (11.2, 5);
-        \draw (7.2, 2) -- (7.2, 5);
+        % L1 Structure: right downward arrow (9.9, 1) → only to B S1
+        \draw (9.9, 1) -- (9.9, 2) -- (1.2, 2) -- (1.2, 5);
 
-        % L2 Structure
-        \draw (10.3, 1) -- (10.3, 1.5);
-        \draw (10.3, 1.5) -- (20.2, 1.5) -- (20.2, 5);
-        \draw (10.3, 1.5) -- (6.1, 1.5) -- (6.1, 10.5);
+        % Diagonal arrow output (10.3, 1) → blind T (capped, unused)
+        \draw (10.3, 1) -- (10.3, 1.3);
+        \draw (10.1, 1.3) -- (10.5, 1.3);
         
         % =====================================
         % START / STOP Pushbuttons
