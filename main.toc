@@ -1,5 +1,5 @@
 \babel@toc {magyar}{}\relax 
-\contentsline {section}{\numberline {1}Egyhengeres munkahenger mozgásának vezérlése szelepek sorbakötésével}{1}{}%
+\contentsline {section}{\numberline {1}Egyhengeres munkahenger mozgásának vezérlése ÉS kapcsolattal}{1}{}%
 \contentsline {section}{\numberline {2}Egyhengeres, folyamatos alternáló mozgást megvalósító kapcsolás}{2}{}%
 \contentsline {section}{\numberline {3}Két munkahengeres vezérlés}{3}{}%
 \contentsline {section}{\numberline {4}Ki domináns öntartó kapcsolás}{4}{}%

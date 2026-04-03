@@ -2,97 +2,129 @@
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[thick, >=Stealth, scale=0.6, transform shape]
+    \begin{tikzpicture}[thick, >=Stealth, scale=0.55, transform shape]
+        
+        \newcommand{\jump}[2]{
+            \fill[white] (#1-0.2, #2-0.15) rectangle (#1+0.2, #2+0.15);
+            \draw (#1, #2-0.15) -- (#1, #2+0.15);
+            \draw (#1-0.2, #2) arc (180:0:0.2);
+        }
+
+        % =========================================================
+        % BLOCKS
+        % =========================================================
 
         % Cylinders
-        \begin{scope}[shift={(1, 8)}]
-            \cyDouble
-            \node[above left] at (0, 1) {A};
+        \begin{scope}[shift={(4, 9)}] % Cyl A
+            \cyDouble \node[above left] at (0, 1) {A};
         \end{scope}
-        \begin{scope}[shift={(10, 8)}]
-            \cyDouble
-            \node[above left] at (0, 1) {B};
+        \draw[dashed] (6.8, 9.4) -- (6.8, 10.5) node[above] {1S1};
+        \draw[dashed] (8.8, 9.4) -- (8.8, 10.5) node[above] {1S2};
+        
+        \begin{scope}[shift={(18, 9)}] % Cyl B
+            \cyDouble \node[above left] at (0, 1) {B};
         \end{scope}
+        \draw[dashed] (20.8, 9.4) -- (20.8, 10.5) node[above] {2S1};
+        \draw[dashed] (22.8, 9.4) -- (22.8, 10.5) node[above] {2S2};
 
         % Főszelep A
-        \begin{scope}[shift={(2.5, 4)}]
+        \begin{scope}[shift={(3, 5)}]
             \valveFiveTwo \actPilotLeft \actPilotRight
             \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
-            \draw (1.3, 1) |- (2.0, 6.5) -- (2.0, 7.5); % Left out -> Cyl A Left
-            \draw (1.7, 1) |- (6.0, 6.5) -- (6.0, 7.5); % Right out -> Cyl A Right
         \end{scope}
+        \draw (4.3, 6) |- (3, 7.5) -- (3, 9);
+        \draw (4.7, 6) |- (5.5, 7.5) -- (5.5, 9);
 
         % Főszelep B
-        \begin{scope}[shift={(11.5, 4)}]
+        \begin{scope}[shift={(17, 5)}]
             \valveFiveTwo \actPilotLeft \actPilotRight
             \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
-            \draw (1.3, 1) |- (11.0, 6.5) -- (11.0, 7.5); % Left out -> Cyl B Left
-            \draw (1.7, 1) |- (15.0, 6.5) -- (15.0, 7.5); % Right out -> Cyl B Right
         \end{scope}
+        \draw (18.3, 6) |- (17, 7.5) -- (17, 9); 
+        \draw (18.7, 6) |- (19.5, 7.5) -- (19.5, 9);
 
-        % Vertical Limit V1 (under Cyl A right)
-        \begin{scope}[shift={(5, 3)}, rotate=-90, transform shape]
-            \valveThreeTwo \actRoller \actSpring
-        \end{scope}
-        \draw (5.3, 3.6) -- (5.3, 4.5); \draw (5.1, 4.5) -- (5.5, 4.5); % Mechanical marker
-        \draw (5, 1.8) |- (4.5, 1.2); \portExhaust{4.5}{1.2} % Exhaust
-        \draw (6, 1.8) |- (5.0, 4.5); % Output (local 1, -1.2 -> absolute X=6, Y=1.8) to Főszelep A Right Pilot
-
-        % Vertical Limit V2
+        % Vertical Limit V1 (1S1 -> B+)
         \begin{scope}[shift={(7, 3)}, rotate=-90, transform shape]
             \valveThreeTwo \actRoller \actSpring
         \end{scope}
-        \draw (7.3, 3.6) -- (7.3, 4.5); \draw (7.1, 4.5) -- (7.5, 4.5);
-        \draw (7, 1.8) |- (6.5, 1.2); \portExhaust{6.5}{1.2}
-        \draw (8, 1.8) |- (11.0, 4.5); % Output to Főszelep B Left Pilot
+        \draw (7, 1.2) |- (6.5, 0.8); \portExhaust{6.5}{0.8}
+        \node[above] at (7.3, 3.5) {1S1};
 
-        % Vertical Limit V3
-        \begin{scope}[shift={(14, 3)}, rotate=-90, transform shape]
+        % Vertical Limit V2 (1S2 -> A-)
+        \begin{scope}[shift={(11, 3)}, rotate=-90, transform shape]
             \valveThreeTwo \actRoller \actSpring
         \end{scope}
-        \draw (14.3, 3.6) -- (14.3, 4.5); \draw (14.1, 4.5) -- (14.5, 4.5);
-        \draw (14, 1.8) |- (13.5, 1.2); \portExhaust{13.5}{1.2}
-        \draw (15, 1.8) |- (14.0, 4.5); % Output to Főszelep B Right Pilot
+        \draw (11, 1.2) |- (10.5, 0.8); \portExhaust{10.5}{0.8}
+        \node[above] at (11.3, 3.5) {1S2};
 
-        % Vertical Limit V4
-        \begin{scope}[shift={(16, 3)}, rotate=-90, transform shape]
+        % Vertical Limit V3 (2S1 -> A+)
+        \begin{scope}[shift={(21, 3)}, rotate=-90, transform shape]
             \valveThreeTwo \actRoller \actSpring
         \end{scope}
-        \draw (16.3, 3.6) -- (16.3, 4.5); \draw (16.1, 4.5) -- (16.5, 4.5);
-        \draw (16, 1.8) |- (15.5, 1.2); \portExhaust{15.5}{1.2}
-        % Output to Főszelep A Left Pilot (2.5-0.5 = 2.0). 
-        % Routes under valves to avoid crossing.
-        \draw (17, 1.8) -- (17, -0.5) -- (1.5, -0.5) -- (1.5, 4.5) -- (2.0, 4.5);
+        \draw (21, 1.2) |- (20.5, 0.8); \portExhaust{20.5}{0.8}
+        \node[above] at (21.3, 3.5) {2S1};
 
-        % Memory 5/2 manifold
-        \begin{scope}[shift={(7, -3)}]
+        % Vertical Limit V4 (2S2 -> B-)
+        \begin{scope}[shift={(24, 3)}, rotate=-90, transform shape]
+            \valveThreeTwo \actRoller \actSpring
+        \end{scope}
+        \draw (24, 1.2) |- (23.5, 0.8); \portExhaust{23.5}{0.8}
+        \node[above] at (24.3, 3.5) {2S2};
+
+        % Memory 5/2 Manifold
+        \begin{scope}[shift={(13, -3)}]
             \valveFiveTwo \actPilotLeft \actPilotRight
             \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
         \end{scope}
-        % Port 4 L1 Manifold. Absolute (7+1.3 = 8.3, -2)
-        \draw (8.3, -2) |- (14, -1) -- (5, -1);
-        \draw (5, -1) -- (5, 1.8);   % V1 Supply (0, -1.2 local -> 5, 1.8 abs)
-        \draw (7, -1) -- (7, 1.8);   % V2 Supply
-        \draw (14, -1) -- (14, 1.8); % V3 Supply
 
-        % Port 2 L2 Manifold. Absolute (7+1.7 = 8.7, -2)
-        \draw (8.7, -2) |- (16, -1.5) -- (16, 1.8); % V4 Supply
+        % L1 Manifold
+        \draw (14.3, -2) |- (21, -1) -- (7, -1);
+        \draw (7, -1) -- (7, 1.8);
+        \draw (11, -1) -- (11, 1.8);
+        \draw (21, -1) -- (21, 1.8);
+        % L2 Manifold
+        \draw (14.7, -2) |- (24, -1.5) -- (24, 1.8);
 
         % START
-        \begin{scope}[shift={(1.5, -6)}]
+        \begin{scope}[shift={(2, -6)}]
             \valveThreeTwo \actButton \actSpring
-            \portSupply{1.2}{0} \portExhaust{1.8}{0}
-            \node[below] at (0.5, -0.2) {START};
-            \draw (1.2, 1) |- (6.5, -2.5); % To Mem Left Pilot
+            \portSupply{0.2}{0} \portExhaust{1.8}{0}
+            \node[below] at (1.0, -0.2) {START};
         \end{scope}
+        \draw (2.2, -5) |- (12.5, -2.5);
 
         % STOP
-        \begin{scope}[shift={(10.5, -6)}]
+        \begin{scope}[shift={(18, -6)}]
             \valveThreeTwo \actButton \actSpring
-            \portSupply{1.2}{0} \portExhaust{1.8}{0}
-            \node[below] at (0.5, -0.2) {STOP};
-            \draw (1.2, 1) |- (9.5, -2.5); % To Mem Right Pilot
+            \portSupply{0.2}{0} \portExhaust{1.8}{0}
+            \node[below] at (1.0, -0.2) {STOP};
         \end{scope}
+        \draw (18.2, -5) |- (15.5, -2.5);
+
+
+        % =========================================================
+        % JUMPING HORIZONTAL LINES & CAMS (Drawn last)
+        % =========================================================
+        
+        % Visual markers are floated above cylinders, cams removed.
+
+        % V1 Output: Right Edge Output -> (8, 1.8) -> to Főszelep B Left (16.5, 5.5)
+        \draw (8, 1.8) -- (8, 5.5) -- (11.8, 5.5);
+        \jump{12.0}{5.5} \draw (12.2, 5.5) -- (16.5, 5.5);
+
+        % V2 Output: Right Edge Output -> (12, 1.8) -> to Főszelep A Right (5.5, 5.5)
+        \draw (12, 1.8) -- (12, 6.0) -- (6.0, 6.0) -- (6.0, 5.5) -- (5.5, 5.5);
+
+        % V3 Output: Right Edge Output -> (22, 1.8) -> to Főszelep A Left (2.5, 5.5)
+        \draw (22, 1.8) -- (22, 6.5) -- (18.9, 6.5);
+        \jump{18.7}{6.5} \jump{18.3}{6.5}
+        \draw (18.1, 6.5) -- (4.9, 6.5);
+        \jump{4.7}{6.5} \jump{4.3}{6.5}
+        \draw (4.1, 6.5) -- (1.5, 6.5) -- (1.5, 5.5) -- (2.5, 5.5);
+
+        % V4 Output: Right Edge Output -> (25, 1.8) -> to Főszelep B Right (19.5, 5.5)
+        \draw (25, 1.8) -- (25, 6.0) -- (22.2, 6.0);
+        \jump{22.0}{6.0} \draw (21.8, 6.0) -- (20.0, 6.0) -- (20.0, 5.5) -- (19.5, 5.5);
 
     \end{tikzpicture}
 \end{figure}
