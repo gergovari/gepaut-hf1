@@ -120,3 +120,68 @@
     \draw (-0.8, 0.2) -- (0.8, 0.2);
     \node at (0, 0) {\&};
 }
+
+% Electrical contact: NO (normally open relay contact)
+% Usage: \contactNO{x}{ytop}{label}
+\newcommand{\contactNO}[3]{
+    % NO Contact slash: from ytop-0.9 to ytop
+    \draw (#1, {#2-0.9}) -- ({#1+0.4}, {#2});
+    % Label: dashed line touches slash at center-y
+    \draw[dashed] ({#1-0.4}, {#2-0.45}) -- ({#1+0.2}, {#2-0.45});
+    \node[anchor=east] at ({#1-0.5}, {#2-0.45}) {#3};
+}
+
+% Electrical contact: NC (normally closed relay contact)
+% Usage: \contactNC{x}{ytop}{label}
+\newcommand{\contactNC}[3]{
+    % NC Contact: Horizontal bar and crossing diagonal slash
+    \draw ({#1-0.3}, {#2}) -- ({#1+0.6}, {#2});
+    \draw (#1, {#2-0.9}) -- ({#1+0.6}, {#2+0.1});
+    % Label
+    \draw[dashed] ({#1-0.4}, {#2-0.45}) -- ({#1+0.3}, {#2-0.45});
+    \node[anchor=east] at ({#1-0.5}, {#2-0.45}) {#3};
+}
+
+% Electrical switch: NO (normally open pushbutton)
+\newcommand{\switchNO}[3]{
+    \draw (#1, {#2-0.9}) -- ({#1+0.4}, {#2});
+    % Pushbutton elements
+    \draw[dashed] ({#1-0.4}, {#2-0.45}) -- ({#1+0.2}, {#2-0.45});
+    \draw ({#1-0.6}, {#2-0.2}) -- ({#1-0.4}, {#2-0.2});
+    \draw ({#1-0.6}, {#2-0.7}) -- ({#1-0.4}, {#2-0.7});
+    \draw ({#1-0.6}, {#2-0.2}) -- ({#1-0.6}, {#2-0.7});
+    \node[anchor=east] at ({#1-0.7}, {#2-0.45}) {#3};
+}
+
+% Electrical switch: NC (normally closed pushbutton)
+\newcommand{\switchNC}[3]{
+    \draw ({#1-0.3}, {#2}) -- ({#1+0.6}, {#2});
+    \draw (#1, {#2-0.9}) -- ({#1+0.6}, {#2+0.1});
+    % Pushbutton elements
+    \draw[dashed] ({#1-0.4}, {#2-0.45}) -- ({#1+0.3}, {#2-0.45});
+    \draw ({#1-0.6}, {#2-0.2}) -- ({#1-0.4}, {#2-0.2});
+    \draw ({#1-0.6}, {#2-0.7}) -- ({#1-0.4}, {#2-0.7});
+    \draw ({#1-0.6}, {#2-0.2}) -- ({#1-0.6}, {#2-0.7});
+    \node[anchor=east] at ({#1-0.7}, {#2-0.45}) {#3};
+}
+% Relay coil
+\newcommand{\relayCoil}[3]{
+    \draw ({#1-0.5}, {#2}) rectangle ({#1+0.5}, {#2-1.0});
+    \node at (#1, {#2-0.5}) {#3};
+    % Add small dash for label connection like FluidSIM if needed, 
+    % but standard rectangle with label inside is usually preferred.
+}
+
+% Solenoid coil (FluidSIM style: slashed rectangle + hourglass valve symbol)
+% Usage: \solenoidCoil{x}{ytop}{label}
+\newcommand{\solenoidCoil}[3]{
+    % Slashed rectangle (1 unit tall)
+    \draw ({#1-0.5}, {#2}) rectangle ({#1+0.5}, {#2-1.0});
+    \draw ({#1-0.5}, {#2-1.0}) -- ({#1+0.5}, {#2});
+    % Join line that crosses the indicator (mid-point y-0.5)
+    \draw ({#1+0.5}, {#2-0.5}) -- ({#1+1.2}, {#2-0.5});
+    % Hourglass valve indicator (two triangles meeting at center)
+    \draw ({#1+0.8}, {#2-0.25}) -- ({#1+1.2}, {#2-0.25}) -- ({#1+0.8}, {#2-0.75}) -- ({#1+1.2}, {#2-0.75}) -- cycle;
+    % Label
+    \node[anchor=south] at ({#1+1.0}, {#2-0.25}) {#3};
+}
