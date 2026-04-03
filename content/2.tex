@@ -1,64 +1,111 @@
 \section{Egyhengeres, folyamatos alternáló mozgást megvalósító kapcsolás}
-
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[thick, >=Stealth, scale=0.7, transform shape]
-        
-        % Cylinder
-        \begin{scope}[shift={(3.75, 8)}]
+    \begin{tikzpicture}[x=0.7cm, y=0.7cm]
+
+        % Top: Cylinder with rod position labels
+        \begin{scope}[shift={(5, 14)}]
             \cyDouble
         \end{scope}
-        \draw[dashed] (6.55, 8.4) -- (6.55, 9.5) node[above] {1S1};
-        \draw[dashed] (8.55, 8.4) -- (8.55, 9.5) node[above] {1S2};
+        \draw[dashed] (7.8, 14.4) -- (7.8, 15.5) node[above] {S1};
+        \draw[dashed] (9.8, 14.4) -- (9.8, 15.5) node[above] {S2};
 
-        % 5/2 Főszelep
-        \begin{scope}[shift={(2.5, 4.5)}]
-            \valveFiveTwo \actPilotLeft \actPilotRight
-            \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
+        % =============================================
+        % Upper 5/2 Főszelep
+        % =============================================
+        \begin{scope}[shift={(5, 10)}]
+            \valveFiveTwo
+            % Right-half ports: exhaust at downward arrow, supply at diagonal, exhaust at T
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
         \end{scope}
-        \draw (3.8, 5.5) |- (2.75, 6.0) -- (2.75, 7.5);
-        \draw (4.2, 5.5) |- (5.25, 6.0) -- (5.25, 7.5);
 
-        % 1S1
-        \begin{scope}[shift={(-1.5, 1)}]
+        % Pilot lines from sides (plain horizontal lines, no triangles)
+        \draw (5, 10.5) -- (4.5, 10.5);
+        \draw (7, 10.5) -- (7.5, 10.5);
+
+        % Cylinder to upper 5/2: outputs from RIGHT HALF arrows (x=1.3 and x=1.7)
+        % Right box: arrow at (1.3, 1) = Port B, arrow at (1.7, 1) = Port A
+        % Absolute: (5+1.3, 11) = (6.3, 11) and (5+1.7, 11) = (6.7, 11)
+        \draw (4.0, 13.5) -- (4.0, 12.0) -- (6.3, 12.0) -- (6.3, 11);
+        \draw (6.5, 13.5) -- (6.5, 12.5) -- (6.7, 12.5) -- (6.7, 11);
+
+        % =============================================
+        % S1 Valve (left, 3/2 Cam)
+        % =============================================
+        \begin{scope}[shift={(1, 5.5)}]
+            \valveThreeTwo \actCam \actSpring
+            % Triangle at the LEFT T position (0.8, 0)
+            \portExhaust{0.8}{0}
+        \end{scope}
+        \node at (0.5, 7) {S1};
+
+        % S1 output from top -> horizontal -> upper 5/2 left pilot
+        \draw (2.2, 6.5) -- (2.2, 9.0) -- (4.5, 9.0) -- (4.5, 10.5);
+
+        % S1 input goes into LEFT ARROW start at (0.2, 0) relative = (1.2, 5.5) absolute
+        % This comes from left output of lower 5/2
+        \draw (1.2, 5.5) -- (1.2, 4.0) -- (6.3, 4.0) -- (6.3, 2.0);
+
+        % =============================================
+        % S2 Valve (right, 3/2 Roller)
+        % =============================================
+        \begin{scope}[shift={(10, 5.5)}]
             \valveThreeTwo \actRoller \actSpring
-            \portExhaust{1.8}{0} \node[above] at (-0.5, 0.8) {1S1};
+            \portExhaust{1.8}{0}
         \end{scope}
-        \draw (-0.3, 2.0) |- (2.0, 5.0);
+        \node at (12.8, 7) {S2};
 
-        % 1S2
-        \begin{scope}[shift={(6.5, 1)}]
-            \valveThreeTwo \actRoller \actSpring
-            \portExhaust{1.8}{0} \node[above] at (-0.5, 0.8) {1S2};
+        % S2 output from top -> horizontal -> upper 5/2 right pilot
+        \draw (11.2, 6.5) -- (11.2, 9.0) -- (7.5, 9.0) -- (7.5, 10.5);
+
+        % S2 gets its own direct supply triangle at bottom
+        \draw (11.2, 5.5) -- (11.2, 5.0); \portSupply{11.2}{5.0}
+
+        % =============================================
+        % Lower 5/2 Memory Valve
+        % =============================================
+        \begin{scope}[shift={(5, 1)}]
+            \valveFiveTwo
+            \portExhaust{1.3}{0}
+            \portSupply{1.5}{0}
+            \portExhaust{1.7}{0}
         \end{scope}
-        \draw (7.7, 2.0) |- (5.0, 5.0);
 
-        % Memory 5/2
-        \begin{scope}[shift={(2.5, -2.5)}]
-            \valveFiveTwo \actPilotLeft \actPilotRight
-            \portExhaust{1.3}{0} \portSupply{1.5}{0} \portExhaust{1.7}{0}
-        \end{scope}
-        \draw (3.8, -1.5) -- (3.8, -0.5); 
-        \draw (-0.3, -0.5) -- (7.7, -0.5); 
-        \draw (-0.3, -0.5) -- (-0.3, 1.0); 
-        \draw (7.7, -0.5) -- (7.7, 1.0); 
-        \draw (4.2, -1.5) -- (4.2, -1.2); \draw (4.05, -1.2) -- (4.35, -1.2);
+        % Pilot lines for lower memory
+        \draw (5, 1.5) -- (4.5, 1.5);
+        \draw (7, 1.5) -- (7.5, 1.5);
 
-        % START
-        \begin{scope}[shift={(0, -5.5)}]
+        % Left output (Port B at x=1.3, y=1) goes UP to S1 supply
+        % (5+1.3, 1+1) = (6.3, 2) → goes up, connects to S1 input pipe at (5.3, 4.0)
+        % Already connected above via S1 input routing
+
+        % Right output (Port A at x=1.7, y=1) = (6.7, 2) → BLIND T (unused)
+        \draw (6.7, 2) -- (6.7, 2.3);
+        \draw (6.5, 2.3) -- (6.9, 2.3);
+
+        % =============================================
+        % START Valve (far left)
+        % =============================================
+        \begin{scope}[shift={(-2, -3)}]
             \valveThreeTwo \actButton \actSpring
-            \portSupply{1.2}{0} \portExhaust{1.8}{0} \node[below] at (1.0, -0.2) {START};
+            \portExhaust{1.8}{0}
         \end{scope}
-        \draw (1.2, -4.5) |- (2.0, -2.0);
+        \draw (-0.8, -3) -- (-0.8, -3.5); \portSupply{-0.8}{-3.5}
+        \draw (-0.8, -2) -- (-0.8, -0.5) -- (4.5, -0.5) -- (4.5, 1.5);
+        \node at (-1.0, -5.5) {START};
 
-        % STOP
-        \begin{scope}[shift={(5, -5.5)}]
+        % =============================================
+        % STOP Valve (far right)
+        % =============================================
+        \begin{scope}[shift={(13, -3)}]
             \valveThreeTwo \actButton \actSpring
-            \portSupply{1.2}{0} \portExhaust{1.8}{0} \node[below] at (1.0, -0.2) {STOP};
+            \portExhaust{1.8}{0}
         \end{scope}
-        \draw (6.2, -4.5) |- (5.0, -2.0);
-
-        % Removed mechanical linkage crossings for logical mapping
+        \draw (14.2, -3) -- (14.2, -3.5); \portSupply{14.2}{-3.5}
+        \draw (14.2, -2) -- (14.2, -0.5) -- (7.5, -0.5) -- (7.5, 1.5);
+        \node at (14.0, -5.5) {STOP};
 
     \end{tikzpicture}
 \end{figure}
